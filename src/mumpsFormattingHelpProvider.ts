@@ -3,7 +3,11 @@ export default class MumpsFormattingHelpProvider {
 	/*eslint class-methods-use-this: 0*/
 	provideDocumentFormattingEdits(document: vscode.TextDocument) {
 		const textEdits: vscode.TextEdit[] = []
-		for (let i = 0; i < document.lineCount; i++) {
+		let numLines = document.lineCount;
+		if (document.lineAt(numLines-1).text === ""){
+			numLines = numLines - 1
+		}
+		for (let i = 0; i < numLines; i++) {
 			const line = document.lineAt(i).text;
 			formatDocumentLine(line, i, textEdits);
 		}
